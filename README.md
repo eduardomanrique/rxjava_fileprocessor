@@ -35,7 +35,7 @@ has a cacheable operation with TTL of 5 seconds. The configuration for the cache
 automatically add the algorithm to the processes. The implemented class will receive an observable each time a new file
 is added to be processed. With the observable, you can filter, scan, and subscribe. The filters and scanning used in 
 the algorithm is only visible to the algorithm itself.
-  There are 5 algorithms. They are located in the package "com.eduardomanrique.tsrd.algorithms":
+  There are 5 implemented algorithms. They are located in the package "com.eduardomanrique.tsrd.algorithms":
   
   -Instrument1Algorithm: Filters instruments INSTRUMENT1 and find the mean value
   
@@ -58,40 +58,53 @@ add to the processes. The filter will be applied before sending to algorithms. T
 ### Global modifiers
   To create a modifier implement the interface com.eduardomanrique.tsrd.datasource.Modifier. Spring will automatically
 add the modifier to the processes. The modifier will run on a map function and is able to change the events. As the 
-events are immutable, so if needed a new event must be created from the old one. There is one modifier:
+events are immutable, if needed a new event must be created from the old one. There is one modifier:
   
   -com.eduardomanrique.tsrd.preprocessors.PriceModifier: This modifiers tries to get a record from 
   instrument_price_modifier table and if found, changes the instrument by multiplying its value by the multiplier column.
   
 ### Project structure
   
-  Main source (src/main/java):
+#### Main source (src/main/java):
   
   -com.eduardomanrique.tsrd.algorithms.*: Algorithms that process the file
+  
   -com.eduardomanrique.tsrd.algorithms.helper.*: Common helper classes for algorithm. 
+  
   -com.eduardomanrique.tsrd.config.*: SpringBoot configuration class
+  
   -com.eduardomanrique.tsrd.datasource.*: The processing framework
+  
   -com.eduardomanrique.tsrd.entities.*: JPA entities
+  
   -com.eduardomanrique.tsrd.preprocessors.*: Global filters and modifiers
+  
   -com.eduardomanrique.tsrd.repositories.*: Spring repositires
+  
   -com.eduardomanrique.tsrd.services.*: Spring services
+  
   -com.eduardomanrique.tsrd.util.*: Utilitary classes
+  
   -com.eduardomanrique.tsrd.TsrdApplication: Main class 
   
-  Main resources (src/main/resources)
+#### Main resources (src/main/resources)
   
   -sql/*: ddl and dml database scripts
+  
   -/application.properties: Spring properties file
   
-  Test sources (src/test/java)
+#### Test sources (src/test/java)
   
   -com.eduardomanrique.tsrd.algorithms.*: Unit tests for algorithms classes
+  
   -com.eduardomanrique.tsrd.integratedtests.*: Integrated tests. Simulates a complete test over the application
+  
   -com.eduardomanrique.tsrd.preprocessors.*: Unit tests for filters and modifiers.
   
-  Test resources (src/test/resources)
+#### Test resources (src/test/resources)
   
   -application-test.properties: configuration for running tests
+  
   -example_input.txt: sample file to run the integrated test
   
   
