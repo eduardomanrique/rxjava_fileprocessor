@@ -13,15 +13,16 @@ mvn clean install
 
 mvn spring-boot:run
 
+## Adding files to process
   After running, a folder with name "to_process" on the project's root folder will be created. To process a file 
-just add files to this folder. The processed files will be moved to the folder "processed" after processed.
-  To change the "to_process" and "processed" folders, edit the properties "source.dir" and "dest.dir" of the file
+JUST ADD FILES TO THIS FOLDER. The processed files will be moved to the folder "processed" after processed.
+  To change the "to_process" and "processed" folder names, edit the properties "source.dir" and "dest.dir" of the file
 "src/resources/application.properties".
  
 ## About the project
 
-  The project build using SpringBoot, JPA, lombok and RXJava. The RXJava is a reactive java library and I used to allow multpile 
-different algorithms to run in a async manner on a file. A simple non daemon thread keeps checking the source dir folder 
+  The project build using SpringBoot, JPA, lombok and RXJava. The RXJava is a reactive java library I used to allow multpile 
+different algorithms to run in a async manner an the same stream of a file. A simple non daemon thread keeps checking the source dir folder 
 to see if there are more files to process. Lombok is a java preprocessor that uses annotations to generate getters, setters
 log etc. 
   The JPA is used in conjunction with spring repositories and spring services with a derby embedded db. The spring service 
