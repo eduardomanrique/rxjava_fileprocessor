@@ -4,3 +4,4 @@ processed/
 to_process/
 *.iml
 *.log
+.idea/
