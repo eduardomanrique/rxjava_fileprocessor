@@ -31,10 +31,10 @@ has a cacheable operation with TTL of 5 seconds. The configuration for the cache
   -src/resources/application.properties: all properties starting with "spring.cache"
      
 ### Algorithms
-  To create new algorithms just implement the interface "com.eduardomanrique.tsrd.datasource.Algorithm". Spring will 
-automatically add the algorithm to the processes. The implemented class will receive an observable each time a new file
-is added to be processed. With the observable, you can filter, scan, and subscribe. The filters and scanning used in 
-the algorithm is only visible to the algorithm itself.
+  To create new algorithms just implement the interface com.eduardomanrique.tsrd.datasource.Algorithm and be 
+annotated with @Component from spring. Spring will automatically add the algorithm to the processes. The implemented 
+class will receive an observable each time a new file is added to be processed. With the observable, you can filter, 
+scan, and subscribe. The filters and scanning used in the algorithm is only visible to the algorithm itself.
   There are 5 implemented algorithms. They are located in the package "com.eduardomanrique.tsrd.algorithms":
   
   -Instrument1Algorithm: Filters instruments INSTRUMENT1 and find the mean value
@@ -50,19 +50,42 @@ the algorithm is only visible to the algorithm itself.
   ordered by date, they are firstly ordered by instrument name.
   
 ### Global filters
-  To create global filters implement the interface com.eduardomanrique.tsrd.datasource.Filter. Spring will automatically 
-add to the processes. The filter will be applied before sending to algorithms. There is one global filter:
+  To create global filters implement the interface com.eduardomanrique.tsrd.datasource.Filter and be annotated with 
+@Component from spring. Spring will automatically add to the processes. The filter will be applied before sending 
+to algorithms. There is one global filter:
   
   -com.eduardomanrique.tsrd.preprocessors.BusinessDaysFilter: Filter business days.
   
 ### Global modifiers
-  To create a modifier implement the interface com.eduardomanrique.tsrd.datasource.Modifier. Spring will automatically
-add the modifier to the processes. The modifier will run on a map function and is able to change the events. As the 
-events are immutable, if needed a new event must be created from the old one. There is one modifier:
+  To create a modifier implement the interface com.eduardomanrique.tsrd.datasource.Modifier and be annotated with 
+@Component from spring. Spring will automatically add the modifier to the processes. The modifier will run on a map 
+function and is able to change the events. As the events are immutable, if needed a new event must be created from 
+the old one. There is one modifier:
   
   -com.eduardomanrique.tsrd.preprocessors.PriceModifier: This modifiers tries to get a record from 
   instrument_price_modifier table and if found, changes the instrument by multiplying its value by the multiplier column.
   
+### The processing framework
+  On the package com.eduardomanrique.tsrd.datasource we have the classes responsible for processing the files. 
+  We have the following classes:
+  
+  -Algorithm: Interface to be implemented by algorithms.
+  
+  -Modifier: Interface to be implemented by global modifiers.
+  
+  -Filter: Interface to be implemented by global filters.
+  
+  -DirectorySource: Class responsible for managing the source and destination folders
+  
+  -TsrdEvent: Represents a line of a file. Has instrument name, date and value.
+  
+  -FileIterable: An Iterable class that reads a file line by line, returning for each line a TsrdEvent.
+  
+  -EventEmmiter: This is the orchestration class. It is responsible for watching the source dir for new files to process.
+  When a new file is added to process, the EventEmitter object creates a FileIterable from this file, cretes an 
+  rx.Observable from this iterable applies the global filtes, then applies the global modifiers and then add the algorithms.
+  When the file is done, moves the file to destination folder.
+
 ### Project structure
   
 #### Main source (src/main/java):
