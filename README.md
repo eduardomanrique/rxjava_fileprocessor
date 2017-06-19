@@ -71,7 +71,7 @@ events are immutable, if needed a new event must be created from the old one. Th
   
   -com.eduardomanrique.tsrd.algorithms.helper.*: Common helper classes for algorithm. 
   
-  -com.eduardomanrique.tsrd.config.*: SpringBoot configuration class
+  -com.eduardomanrique.tsrd.config.TsrdConfiguration: SpringBoot configuration class
   
   -com.eduardomanrique.tsrd.datasource.*: The processing framework
   
