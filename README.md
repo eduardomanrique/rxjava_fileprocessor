@@ -82,9 +82,9 @@ the old one. There is one modifier:
   -FileIterable: An Iterable class that reads a file line by line, returning for each line a TsrdEvent.
   
   -EventEmmiter: This is the orchestration class. It is responsible for watching the source dir for new files to process.
-  When a new file is added to process, the EventEmitter object creates a FileIterable from this file, cretes an 
-  rx.Observable from this iterable applies the global filtes, then applies the global modifiers and then add the algorithms.
-  When the file is done, moves the file to destination folder.
+  When a new file is added to process, the EventEmitter object creates a FileIterable from the file, cretes an 
+  rx.Observable from the iterable, applies the global filtes, then applies the global modifiers and finally add the algorithms.
+  When the file is done, the EventEmmiter moves the processed ile to destination folder.
 
 ### Project structure
   
