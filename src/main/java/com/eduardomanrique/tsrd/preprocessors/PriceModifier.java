@@ -1,6 +1,6 @@
 package com.eduardomanrique.tsrd.preprocessors;
 
-import com.eduardomanrique.tsrd.datasource.Modifiler;
+import com.eduardomanrique.tsrd.datasource.Modifier;
 import com.eduardomanrique.tsrd.datasource.TsrdEvent;
 import com.eduardomanrique.tsrd.entities.InstrumentPriceModifier;
 import com.eduardomanrique.tsrd.services.InstrumentPriceModifierService;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Created by emanrique on 18/06/17.
  */
 @Component
-public class PriceModifiler implements Modifiler {
+public class PriceModifier implements Modifier {
 
     @Autowired
     private InstrumentPriceModifierService instrumentPriceModifierService;

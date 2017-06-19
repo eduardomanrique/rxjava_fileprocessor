@@ -27,7 +27,7 @@ public class EventEmitter {
     private List<Filter> filterList;
 
     @Autowired
-    private List<Modifiler> modifierList;
+    private List<Modifier> modifierList;
 
     @Value("${source.dir}")
     private String sourceDirPath;
@@ -119,7 +119,7 @@ public class EventEmitter {
         return applyModifiers(observable, modifierList.iterator());
     }
 
-    private Observable<TsrdEvent> applyModifiers(Observable<TsrdEvent> observable, Iterator<Modifiler> it) {
+    private Observable<TsrdEvent> applyModifiers(Observable<TsrdEvent> observable, Iterator<Modifier> it) {
         if (it.hasNext()) {
             return applyModifiers(observable.map(it.next()::map), it);
         } else {
